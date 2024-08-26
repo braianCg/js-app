@@ -1,10 +1,26 @@
 let cart = [];
+
+let productosDelLS = localStorage.getItem('productosCarrito') || [];
+
+if(productosDelLS.length >= 1){
+    alert("HEY! tu carrito tiene elementos");
+}
+
 let total = 0;
 
-function addToCart(productName, productPrice) {
-    cart.push({ name: productName, price: productPrice });
+function addToCart(productName = "", productPrice = 0) {
+    const producto = { 
+        name: productName,
+        price: productPrice
+    }
+    guardarLocalStorage(producto);
+    cart.push(producto);
     total += productPrice;
     updateCart();
+}
+
+function guardarLocalStorage(producto) {
+    localStorage.setItem('productosCarrito', JSON.stringify(producto));
 }
 
 function updateCart() {
